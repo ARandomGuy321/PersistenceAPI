@@ -31,6 +31,7 @@
 #include "hooks/OpacityEffectAction.hpp"
 #include "hooks/PulseEffectAction.hpp"
 #include "hooks/DynamicObjectAction.hpp"
+#include "Geode/binding/EffectGameObject.hpp"
 
 using namespace persistenceAPI;
 
@@ -64,6 +65,9 @@ void Stream::operator<<(EnterEffectObject*& i_value) {
     writeGenericGameObjectPtr<EnterEffectObject>(this, &i_value);
 }
 
+void Stream::operator<<(EnterEffectObject*& i_value) {
+    writeGenericGameObjectPtr<EnterEffectObject>(this, &i_value);
+}
 // vector
 
 template<class T, class U>
