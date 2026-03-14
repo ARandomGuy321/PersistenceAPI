@@ -46,11 +46,11 @@ inline void persistenceAPI::operator>>(Stream& i_stream, PADynamicObjectAction& 
         SEPARATOR_I
         i_stream >> o_value.m_unkBool4;
         SEPARATOR_I
-        i_stream >> o_value.m_unkFloat4;
+        i_stream >> static_cast<DynamicObjectAction&>(o_value).m_unkFloat4;
         SEPARATOR_I
-        i_stream >> o_value.m_unkFloat5;
+        i_stream >> static_cast<DynamicObjectAction&>(o_value).m_unkFloat5;
         SEPARATOR_I
-        i_stream >> o_value.m_unkFloat6;
+        i_stream >> static_cast<DynamicObjectAction&>(o_value).m_unkFloat6;
     } else {
         i_stream.read(reinterpret_cast<char*>(&o_value) + offsetof(PADynamicObjectAction,m_gameObject8) + sizeof(GameObject*), 32);
     }
