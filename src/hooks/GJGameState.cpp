@@ -188,7 +188,7 @@ inline void persistenceAPI::operator>>(Stream& i_stream, PAGJGameState& o_value)
     SEPARATOR_I
     i_stream >> o_value.m_unkDouble3;
     SEPARATOR_I
-    i_stream >> o_value.m_unkUint2;
+    i_stream >> o_value.m_commandIndex;
     SEPARATOR_I
     i_stream >> o_value.m_unkUint3;
     SEPARATOR_I
@@ -533,7 +533,7 @@ inline void persistenceAPI::operator<<(Stream& o_stream, PAGJGameState& i_value)
     SEPARATOR_O
     o_stream << i_value.m_unkDouble3;
     SEPARATOR_O
-    o_stream << i_value.m_unkUint2;
+    o_stream << i_value.m_commandIndex;
     SEPARATOR_O
     o_stream << i_value.m_unkUint3;
     SEPARATOR_O
@@ -837,7 +837,7 @@ void PAGJGameState::describe() {
     log::info("[PAGJGameState - describe] m_totalTime: {}", m_totalTime);
     log::info("[PAGJGameState - describe] m_levelTime: {}", m_levelTime);
     log::info("[PAGJGameState - describe] m_unkDouble3: {}", m_unkDouble3);
-    log::info("[PAGJGameState - describe] m_unkUint2: {}", m_unkUint2);
+    log::info("[PAGJGameState - describe] m_commandIndex: {}", m_commandIndex);
     log::info("[PAGJGameState - describe] m_unkUint3: {}", m_unkUint3);
     log::info("[PAGJGameState - describe] m_currentProgress: {}", m_currentProgress);
     log::info("[PAGJGameState - describe] m_unkUint4: {}", m_unkUint4);
