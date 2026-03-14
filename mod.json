@@ -11,7 +11,7 @@
 	"name": "PersistenceAPI",
 	"developer": "Sabe",
 	"description": "API for serialization/deserialization of GD classes",
-	"repository": "https://github.com/0x5abe/PersistenceAPI",
+	"repository": "https://github.com/ARandomGuy321/PersistenceAPI",
 	"tags": [
 		"utility",
 		"developer"
