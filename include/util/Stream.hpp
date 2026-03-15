@@ -220,6 +220,8 @@ namespace persistenceAPI {
 
         SABE_PA_DLL void operator>>(EnterEffectObject*& o_value);
 
+        SABE_PA_DLL void operator>>(EffectGameObject*& o_value);
+
         // vector
 
         template <class T>
