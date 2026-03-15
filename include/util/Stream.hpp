@@ -491,7 +491,9 @@ namespace persistenceAPI {
         SABE_PA_DLL void operator<<(DashRingObject*& i_value);
 
         SABE_PA_DLL void operator<<(EnterEffectObject*& i_value);
-
+        
+        SABE_PA_DLL void operator<<(EffectGameObject*& i_value);
+        
         // vector
 
         template <class T>
