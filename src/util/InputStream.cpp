@@ -31,6 +31,7 @@
 #include "hooks/DynamicObjectAction.hpp"
 #include "hooks/PlayLayer.hpp"
 #include "Geode/binding/EffectGameObject.hpp"
+#include "Geode/binding/AdvancedFollowTriggerObject.hpp"
 
 using namespace persistenceAPI;
 
@@ -67,6 +68,10 @@ void Stream::operator>>(EnterEffectObject*& o_value) {
 
 void Stream::operator>>(EffectGameObject*& o_value) {
     readGenericGameObjectPtr<EffectGameObject>(this, &o_value);
+}
+
+void Stream::operator>>(AdvancedFollowTriggerObject*& o_value) {
+    readGenericGameObjectPtr<AdvancedFollowTriggerObject>(this, &o_value);
 }
 
 // vector
