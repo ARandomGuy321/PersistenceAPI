@@ -88,11 +88,11 @@ inline void persistenceAPI::operator<<(Stream& o_stream, PADynamicObjectAction& 
     SEPARATOR_O
     o_stream << i_value.m_unkBool4;
     SEPARATOR_O
-    o_stream << static_cast<DynamicObjectAction&>(i_value).m_unkFloat4;
+    o_stream << i_value.m_fields->m_unkFloat4;
     SEPARATOR_O
-    o_stream << static_cast<DynamicObjectAction&>(i_value).m_unkFloat5;
+    o_stream << i_value.m_fields->m_unkFloat5;
     SEPARATOR_O
-    o_stream << static_cast<DynamicObjectAction&>(i_value).m_unkFloat6;
+    o_stream << i_value.m_fields->m_unkFloat6;
     SEPARATOR_O
 }
 
