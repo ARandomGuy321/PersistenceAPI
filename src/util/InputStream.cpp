@@ -30,6 +30,7 @@
 #include "hooks/PulseEffectAction.hpp"
 #include "hooks/DynamicObjectAction.hpp"
 #include "hooks/PlayLayer.hpp"
+#include "Geode/binding/EffectGameObject.hpp"
 
 using namespace persistenceAPI;
 
@@ -62,6 +63,10 @@ void Stream::operator>>(DashRingObject*& o_value) {
 
 void Stream::operator>>(EnterEffectObject*& o_value) {
     readGenericGameObjectPtr<EnterEffectObject>(this, &o_value);
+}
+
+void Stream::operator>>(EffectGameObject*& o_value) {
+    readGenericGameObjectPtr<EffectGameObject>(this, &o_value);
 }
 
 // vector
