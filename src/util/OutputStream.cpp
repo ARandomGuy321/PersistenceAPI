@@ -32,6 +32,7 @@
 #include "hooks/PulseEffectAction.hpp"
 #include "hooks/DynamicObjectAction.hpp"
 #include "Geode/binding/EffectGameObject.hpp"
+#include "Geode/binding/AdvancedFollowTriggerObject.hpp"
 
 using namespace persistenceAPI;
 
