@@ -46,21 +46,21 @@ inline void persistenceAPI::operator>>(Stream& i_stream, PAPlayerCheckpoint& o_v
     i_stream >> o_value.m_ghostType;
     SEPARATOR_I
     if (i_stream.getPAVersion() > 1) {
-        i_stream >> o_value.m_miniMode;
+        i_stream >> o_value.m_isMini;
     } else {
-        i_stream.read(reinterpret_cast<char*>(&o_value.m_miniMode), 4);
+        i_stream.read(reinterpret_cast<char*>(&o_value.m_isMini), 4);
     }
     SEPARATOR_I
-    i_stream >> o_value.m_speed;
+    i_stream >> o_value.m_playerSpeed;
     SEPARATOR_I
-    i_stream >> o_value.m_hidden;
+    i_stream >> o_value.m_isHidden;
     SEPARATOR_I
-    i_stream >> o_value.m_goingLeft;
+    i_stream >> o_value.m_isGoingLeft;
     SEPARATOR_I
     if (i_stream.getPAVersion() > 1) {
-        i_stream >> o_value.m_reverseSpeed;
+        i_stream >> o_value.m_maybeReverseSpeed;
         SEPARATOR_I
-        i_stream >> o_value.m_dashing;
+        i_stream >> o_value.m_isDashing;
         SEPARATOR_I
         i_stream >> o_value.m_dashX;
         SEPARATOR_I
@@ -70,9 +70,9 @@ inline void persistenceAPI::operator>>(Stream& i_stream, PAPlayerCheckpoint& o_v
         SEPARATOR_I
         i_stream >> o_value.m_dashStartTime;
         SEPARATOR_I
-        i_stream >> o_value.m_dashRingObject;
+        i_stream >> o_value.m_dashRing;
     } else {
-        i_stream.read(reinterpret_cast<char*>(&o_value) + offsetof(PAPlayerCheckpoint,m_goingLeft) + sizeof(bool), 34);
+        i_stream.read(reinterpret_cast<char*>(&o_value) + offsetof(PAPlayerCheckpoint,m_isGoingLeft) + sizeof(bool), 34);
     }
     SEPARATOR_I
     i_stream >> o_value.m_platformerCheckpoint;
@@ -100,9 +100,9 @@ inline void persistenceAPI::operator>>(Stream& i_stream, PAPlayerCheckpoint& o_v
     i_stream >> o_value.m_playerFollowFloats;
     VEC_SEPARATOR_I
     if (i_stream.getPAVersion() > 1) {
-        i_stream >> o_value.m_followRelated2;
+        i_stream >> o_value.m_unk838;
     } else {
-        i_stream.read(reinterpret_cast<char*>(&o_value) + offsetof(PAPlayerCheckpoint,m_followRelated2), 8);
+        i_stream.read(reinterpret_cast<char*>(&o_value) + offsetof(PAPlayerCheckpoint,m_unk838), 8);
     }
     SEPARATOR_I
 }
@@ -136,17 +136,17 @@ inline void persistenceAPI::operator<<(Stream& o_stream, PAPlayerCheckpoint& i_v
     SEPARATOR_O
     o_stream << i_value.m_ghostType;
     SEPARATOR_O
-    o_stream << i_value.m_miniMode;
+    o_stream << i_value.m_isMini;
     SEPARATOR_O
-    o_stream << i_value.m_speed;
+    o_stream << i_value.m_playerSpeed;
     SEPARATOR_O
-    o_stream << i_value.m_hidden;
+    o_stream << i_value.m_isHidden;
     SEPARATOR_O
-    o_stream << i_value.m_goingLeft;
+    o_stream << i_value.m_isGoingLeft;
     SEPARATOR_O
-    o_stream << i_value.m_reverseSpeed;
+    o_stream << i_value.m_maybeReverseSpeed;
     SEPARATOR_O
-    o_stream << i_value.m_dashing;
+    o_stream << i_value.m_isDashing;
     SEPARATOR_O
     o_stream << i_value.m_dashX;
     SEPARATOR_O
@@ -156,7 +156,7 @@ inline void persistenceAPI::operator<<(Stream& o_stream, PAPlayerCheckpoint& i_v
     SEPARATOR_O
     o_stream << i_value.m_dashStartTime;
     SEPARATOR_O
-    o_stream << i_value.m_dashRingObject;
+    o_stream << i_value.m_dashRing;
     SEPARATOR_O
     o_stream << i_value.m_platformerCheckpoint;
     SEPARATOR_O
@@ -170,7 +170,7 @@ inline void persistenceAPI::operator<<(Stream& o_stream, PAPlayerCheckpoint& i_v
     VEC_SEPARATOR_O
     o_stream << i_value.m_playerFollowFloats;
     VEC_SEPARATOR_O
-    o_stream << i_value.m_followRelated2;
+    o_stream << i_value.m_unk838;
     SEPARATOR_O
 }
 
@@ -192,18 +192,18 @@ void PAPlayerCheckpoint::describe() {
     log::info("[PAPlayerCheckpoint - describe] m_isSpider: {}", m_isSpider);
     log::info("[PAPlayerCheckpoint - describe] m_isOnGround: {}", m_isOnGround);
     log::info("[PAPlayerCheckpoint - describe] m_ghostType: {}", *reinterpret_cast<int*>(&m_ghostType));
-    log::info("[PAPlayerCheckpoint - describe] m_miniMode: {}", m_miniMode);
-    log::info("[PAPlayerCheckpoint - describe] m_speed: {}", m_speed);
-    log::info("[PAPlayerCheckpoint - describe] m_hidden: {}", m_hidden);
-    log::info("[PAPlayerCheckpoint - describe] m_goingLeft: {}", m_goingLeft);
-    log::info("[PAPlayerCheckpoint - describe] m_reverseSpeed: {}", m_reverseSpeed);
-    log::info("[PAPlayerCheckpoint - describe] m_dashing: {}", m_dashing);
+    log::info("[PAPlayerCheckpoint - describe] m_isMini: {}", m_isMini);
+    log::info("[PAPlayerCheckpoint - describe] m_playerSpeed: {}", m_playerSpeed);
+    log::info("[PAPlayerCheckpoint - describe] m_isHidden: {}", m_isHidden);
+    log::info("[PAPlayerCheckpoint - describe] m_isGoingLeft: {}", m_isGoingLeft);
+    log::info("[PAPlayerCheckpoint - describe] m_maybeReverseSpeed: {}", m_maybeReverseSpeed);
+    log::info("[PAPlayerCheckpoint - describe] m_isDashing: {}", m_isDashing);
     log::info("[PAPlayerCheckpoint - describe] m_dashX: {}", m_dashX);
     log::info("[PAPlayerCheckpoint - describe] m_dashY: {}", m_dashY);
     log::info("[PAPlayerCheckpoint - describe] m_dashAngle: {}", m_dashAngle);
     log::info("[PAPlayerCheckpoint - describe] m_dashStartTime: {}", m_dashStartTime);
-    if (l_playLayer) l_objectIndex = l_playLayer->getGameObjectIndex(m_dashRingObject);
-    log::info("[PAPlayerCheckpoint - describe] m_dashRingObject: {}", l_objectIndex);
+    if (l_playLayer) l_objectIndex = l_playLayer->getGameObjectIndex(m_dashRing);
+    log::info("[PAPlayerCheckpoint - describe] m_dashRing: {}", l_objectIndex);
     log::info("[PAPlayerCheckpoint - describe] m_platformerCheckpoint: {}", m_platformerCheckpoint);
     log::info("[PAPlayerCheckpoint - describe] m_lastFlipTime: {}", m_lastFlipTime);
     log::info("[PAPlayerCheckpoint - describe] m_gravityMod: {}", m_gravityMod);
@@ -214,6 +214,6 @@ void PAPlayerCheckpoint::describe() {
     for (int i = 0; i < l_size; i++) {
         log::info("[PAPlayerCheckpoint - describe] m_playerFollowFloats[{}]: {}", i, m_playerFollowFloats[i]);
     }
-    log::info("[PAPlayerCheckpoint - describe] m_followRelated2: {}", m_followRelated2);
+    log::info("[PAPlayerCheckpoint - describe] m_unk838: {}", m_unk838);
 }
 #endif
