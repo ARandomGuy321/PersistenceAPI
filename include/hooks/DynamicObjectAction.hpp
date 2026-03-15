@@ -11,6 +11,7 @@ namespace persistenceAPI {
         float m_unkFloat4 = 0.f;
         float m_unkFloat5 = 0.f;
         float m_unkFloat6 = 0.f;
+    };
 
     public:
         friend void operator>>(persistenceAPI::Stream& i_stream, PADynamicObjectAction& o_value);
