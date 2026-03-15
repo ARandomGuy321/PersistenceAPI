@@ -19,7 +19,7 @@ inline void persistenceAPI::operator>>(Stream& i_stream, PATimerItem& o_value) {
         SEPARATOR_I
         i_stream >> o_value.m_time;
         SEPARATOR_I
-        i_stream >> o_value.m_paused;
+        i_stream >> o_value.m_active;
         SEPARATOR_I
         i_stream >> o_value.m_timeMod;
         SEPARATOR_I
