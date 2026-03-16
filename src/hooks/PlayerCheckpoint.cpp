@@ -57,23 +57,43 @@ inline void persistenceAPI::operator>>(Stream& i_stream, PAPlayerCheckpoint& o_v
     SEPARATOR_I
     i_stream >> o_value.m_isGoingLeft;
     SEPARATOR_I
-    if (i_stream.getPAVersion() > 1) {
-        i_stream >> o_value.m_maybeReverseSpeed;
-        SEPARATOR_I
-        i_stream >> o_value.m_isDashing;
-        SEPARATOR_I
-        i_stream >> o_value.m_dashX;
-        SEPARATOR_I
-        i_stream >> o_value.m_dashY;
-        SEPARATOR_I
-        i_stream >> o_value.m_dashAngle;
-        SEPARATOR_I
-        i_stream >> o_value.m_dashStartTime;
-        SEPARATOR_I
-        i_stream >> o_value.m_dashRing;
-    } else {
-        i_stream.read(reinterpret_cast<char*>(&o_value) + offsetof(PAPlayerCheckpoint,m_isGoingLeft) + sizeof(bool), 34);
-    }
+    if (i_stream.getPAVersion() > 2) {
+    i_stream >> o_value.m_maybeReverseSpeed;
+    SEPARATOR_I
+    i_stream >> o_value.m_isDashing;
+    SEPARATOR_I
+    i_stream >> o_value.m_dashX;
+    SEPARATOR_I
+    i_stream >> o_value.m_dashY;
+    SEPARATOR_I
+    i_stream >> o_value.m_dashAngle;
+    SEPARATOR_I
+    i_stream >> o_value.m_dashStartTime;
+    SEPARATOR_I
+    i_stream >> o_value.m_dashRing;
+} else if (i_stream.getPAVersion() == 2) {
+    float l_maybeReverseSpeed, l_dashX, l_dashY, l_dashAngle, l_dashStartTime;
+    i_stream.read(reinterpret_cast<char*>(&l_maybeReverseSpeed), sizeof(float));
+    o_value.m_maybeReverseSpeed = l_maybeReverseSpeed;
+    SEPARATOR_I
+    i_stream >> o_value.m_isDashing;
+    SEPARATOR_I
+    i_stream.read(reinterpret_cast<char*>(&l_dashX), sizeof(float));
+    o_value.m_dashX = l_dashX;
+    SEPARATOR_I
+    i_stream.read(reinterpret_cast<char*>(&l_dashY), sizeof(float));
+    o_value.m_dashY = l_dashY;
+    SEPARATOR_I
+    i_stream.read(reinterpret_cast<char*>(&l_dashAngle), sizeof(float));
+    o_value.m_dashAngle = l_dashAngle;
+    SEPARATOR_I
+    i_stream.read(reinterpret_cast<char*>(&l_dashStartTime), sizeof(float));
+    o_value.m_dashStartTime = l_dashStartTime;
+    SEPARATOR_I
+    i_stream >> o_value.m_dashRing;
+} else {
+    i_stream.read(reinterpret_cast<char*>(&o_value) + offsetof(PAPlayerCheckpoint,m_isGoingLeft) + sizeof(bool), 34);
+}
     SEPARATOR_I
     i_stream >> o_value.m_platformerCheckpoint;
     SEPARATOR_I
