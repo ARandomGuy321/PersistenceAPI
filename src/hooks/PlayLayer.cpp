@@ -4,7 +4,7 @@ using namespace geode::prelude;
 using namespace persistenceAPI;
 
 #if defined(GEODE_IS_WINDOWS)
-    #define UNIQUE_ID_OFFSET 0x69c158
+    #define UNIQUE_ID_OFFSET 0x6BA158
 #elif  defined(GEODE_IS_ANDROID64)
     #define UNIQUE_ID_OFFSET 0x11fe018
 #elif  defined(GEODE_IS_ANDROID32)
