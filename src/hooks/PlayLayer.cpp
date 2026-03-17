@@ -25,8 +25,12 @@ bool persistenceAPI::PAPlayLayer::init(GJGameLevel* i_level, bool i_useReplay, b
     // probably maps with object id as keys, it's not just us saving pointers so I'd have to find those.
 
     *reinterpret_cast<int*>(geode::base::get()+UNIQUE_ID_OFFSET) = 10;
-    auto addr = reinterpret_cast<int*>(geode::base::get() + UNIQUE_ID_OFFSET);
-log::info("Counter address: {:p}", addr);
+    if (addr) {
+        log::debug("Counter address: %p", addr);
+        log::debug("Counter value: %d", *addr);
+    } else {
+        log::debug("Counter address is null");
+    }
     m_fields->m_uniqueIDBase = *reinterpret_cast<int*>(geode::base::get()+UNIQUE_ID_OFFSET) + 2;
 
     if (!PlayLayer::init(i_level, i_useReplay, i_dontCreateObjects)) return false;
